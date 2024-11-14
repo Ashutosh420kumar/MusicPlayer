@@ -16,7 +16,7 @@ function secondsToMinutesSeconds(seconds) {
 }
 async function getSongs(folder) {
     currFolder = folder;
-    let a = await fetch(`http://127.0.0.1:5500/${folder}`)
+    let a = await fetch(`/${folder}`)
     //let a = await fetch(`http://127.0.0.1:5500/Project%20-%20Songora/${folder}/`)
     let response = await a.text();
     let div = document.createElement('div')
@@ -68,7 +68,7 @@ const playMusic = (track, pause = false) => {
     document.querySelector(".songtime").innerHTML = "00:00 / 00:00"
 }
 async function displayAlbums() {
-    let a = await fetch(`http://127.0.0.1:5500/songs/`)
+    let a = await fetch(`../songs/`)
     //console.log("a = ",a);
 
     let response = await a.text();
@@ -92,7 +92,7 @@ async function displayAlbums() {
 
             if (folder !== "songs") {
                 //console.log("this ids "+folder);
-                let a = await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`)
+                let a = await fetch(`../songs/${folder}/info.json`)
                 let response = await a.json();
                 //console.log(response);
                 cardContainer.innerHTML = cardContainer.innerHTML + `<div data-folder="${folder}" class="card">
@@ -135,7 +135,7 @@ async function displayAlbums() {
 async function main() {
 
     // get the list of all songs
-    await getSongs("songs/ncs")
+    await getSongs("../songs/ncs")
     playMusic(songs[0], true)
 
     // Display all the albums on the page
@@ -144,11 +144,11 @@ async function main() {
     play.addEventListener('click', () => {
         if (currentSong.paused) {
             currentSong.play()
-            play.src = "img/pause.svg"
+            play.src = "../img/pause.svg"
         }
         else {
             currentSong.pause()
-            play.src = "img/play.svg"
+            play.src = "../img/play.svg"
         }
     })
     // Listen for timeupdate event
